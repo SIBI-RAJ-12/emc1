@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Data Table</title>
+    <style>
+        form {
+            padding: 15px;
+        }
+        label {
+            padding: 10px;
+        }
+        input {
+            padding-top: 10px;
+        }
+        div {
+            padding-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <form onsubmit="event.preventDefault(); print();">
+            <label for="name">Name</label>
+            <input id="name" type="text">
+            <br>
+            <label for="Age">Age</label>
+            <input id="Age" type="number">
+            <br>
+            <label>Gender</label>
+            <div class="selected_gender">
+                <input type="radio" name="gender" value="male"> Male
+                <input type="radio" name="gender" value="female"> Female
+            </div>
+            <br>
+            <label for="course">Course</label>
+            <input id="course" type="text">
+            <br>
+            <label for="email">Email</label>
+            <input id="email" type="email">
+            <br>
+            <div>
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </center>
+
+    <table id="data_table">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Course</th>
+            <th>Email</th>
+        </tr>
+    </table>
+
+    <script>
+        function print() {
+            var name = document.getElementById("name").value;
+            var age = document.getElementById("Age").value;
+            var gender = document.querySelector('input[name="gender"]:checked');
+            var course = document.getElementById("course").value;
+            var email = document.getElementById("email").value;
+
+            if (!name || !age || !gender || !course || !email) {
+                alert("Please fill all fields.");
+                return;
+            }
+
+            var table = document.getElementById("data_table");
+            var newrow = table.insertRow();
+            newrow.insertCell(0).innerText = name;
+            newrow.insertCell(1).innerText = age;
+            newrow.insertCell(2).innerText = gender.value;
+            newrow.insertCell(3).innerText = course;
+            newrow.insertCell(4).innerText = email;
+
+            // Reset form after submission
+            document.querySelector("form").reset();
+        }
+    </script>
+</body>
+</html>
